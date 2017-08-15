@@ -1,11 +1,19 @@
-# Script for populating the database. You can run it as:
-#
 #     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     UpsertBug.Repo.insert!(%UpsertBug.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+
+alias UpsertBug.Users.User
+alias UpsertBug.Posts.Post
+alias UpsertBug.Comments.Comment
+
+users =
+  0..20
+  |> Enum.map(fn _ ->
+    %User{
+      email: Faker.Internet.email,
+      name: Faker.Name.name
+    }
+  end)
+
+users
+|> Enum.each(fn user ->
+  UpsertBug.Repo.insert!(user)
+end)
