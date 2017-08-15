@@ -2,15 +2,16 @@ defmodule UpsertBug.Posts.Post do
   use Ecto.Schema
   import Ecto.Changeset
   alias UpsertBug.Posts.Post
-
+  alias UpsertBug.Users.User
+  alias UpsertBug.Comments.Comment
 
   schema "posts" do
     field :body, :string
     field :title, :string
     field :votes, :integer
 
-    has_many :comments, Comments.Comment
-    belongs_to :user, Users.User
+    has_many :comments, Comment
+    belongs_to :user, User
 
     timestamps()
   end
