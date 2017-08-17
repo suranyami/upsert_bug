@@ -4,6 +4,7 @@ defmodule UpsertBug.Posts.Post do
   alias UpsertBug.Posts.Post
   alias UpsertBug.Users.User
   alias UpsertBug.Comments.Comment
+  import Ecto.Query
 
   schema "posts" do
     field :body, :string

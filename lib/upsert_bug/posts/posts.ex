@@ -19,6 +19,7 @@ defmodule UpsertBug.Posts do
   """
   def list_posts do
     Repo.all(Post)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +36,11 @@ defmodule UpsertBug.Posts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id) do
+    Repo.get!(Post, id)
+    |> Repo.preload(:user)
+    |> Repo.preload(comments: :user)
+  end
 
   @doc """
   Creates a post.

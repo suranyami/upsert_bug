@@ -1,28 +1,24 @@
-<h2>Listing Posts</h2>
+<span class="pull-right">
+  <%= link "New Post", to: post_path(@conn, :new), class: "btn btn-default btn-xs" %>
+</span>
+<h2>Posts</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for post <- @posts do %>
-    <tr>
-      <td><%= post.title %></td>
-      <td><%= post.body %></td>
+<ul>
+  <%= for post <- @posts do %>
+    <li>
+      <h3><%= post.title %></h3>
+      <div class="post">
+        <%= raw String.slice(post.body, 0..100) %>
+        <p class="pull-right">
+          <%= link post.user.name, to: user_path(@conn, :show, post.user) %>
+        </p>
+      </div>
 
-      <td class="text-right">
-        <span><%= link "Show", to: post_path(@conn, :show, post), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: post_path(@conn, :edit, post), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+      <span><%= link "Show", to: post_path(@conn, :show, post), class: "btn btn-default btn-xs" %></span>
+      <span><%= link "Edit", to: post_path(@conn, :edit, post), class: "btn btn-default btn-xs" %></span>
+      <span><%= link "Delete", to: post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
 
-<span><%= link "New Post", to: post_path(@conn, :new) %></span>
+    </li>
+  <% end %>
+</ul>

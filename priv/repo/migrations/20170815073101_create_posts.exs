@@ -4,13 +4,14 @@ defmodule UpsertBug.Repo.Migrations.CreatePosts do
   def change do
     create table(:posts) do
       add :title, :string
-      add :body, :string
-      add :votes, :integer
+      add :body, :text
+      add :votes, :integer, default: 0
 
       add :user_id, references(:users)
 
       timestamps()
     end
 
+    create unique_index(:posts, [:user_id, :title])
   end
 end

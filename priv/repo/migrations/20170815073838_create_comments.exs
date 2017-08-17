@@ -3,8 +3,8 @@ defmodule UpsertBug.Repo.Migrations.CreateComments do
 
   def change do
     create table(:comments) do
-      add :comment, :string
-      add :votes, :integer
+      add :comment, :text
+      add :votes, :integer, default: 0
 
       add :user_id, references(:users)
       add :post_id, references(:posts)
